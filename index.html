@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Калькулятор</title>
 </head>
 
@@ -14,10 +15,10 @@
 
     <!-- блок с кнопками -->
     <div id="operator_btns">
-        <button id="plus" onclick="op='+'">+</button>
-        <button id="minus" onclick="op='-'">-</button>
-        <button id="times" onclick="op='*'">x</button>
-        <button id="divide" onclick="op='/'">:</button>
+        <button id="plus" onclick="sel_light('plus')">+</button>
+        <button id="minus" onclick="sel_light('minus')">-</button>
+        <button id="times" onclick="sel_light('times')">x</button>
+        <button id="divide" onclick="sel_light('divide')">:</button>
     </div>
 
     <!-- поле ввода второго числа -->
@@ -56,6 +57,41 @@
             }
             document.getElementById("result").innerHTML = result;
         }
+
+        // функция, которая подсветит выбранное математическое действие
+        function sel_light(sel_id) {
+            // убираем класс подсветки со всех кнопок
+            document.getElementById("plus").classList.remove("light");
+            document.getElementById("minus").classList.remove("light");
+            document.getElementById("times").classList.remove("light");
+            document.getElementById("divide").classList.remove("light");
+
+            // и добавляем его только к нажатой
+            document.getElementById(sel_id).classList.add("light");
+
+            // в зависимости от нажатой клавиши меняем значение переменной op
+            switch (sel_id) {
+                case "plus":
+                    op = "+";
+                    break;
+                case "minus":
+                    op = "-";
+                    break;
+                case "times":
+                    op = "*";
+                    break;
+                case "divide":
+                    op = "/";
+                    break;
+            }
+        }
+
+        //добавляем обработчик нажатия на клавиши ко второму полю ввода
+        document.getElementById("num2").addEventListener("keydown", function (e) {
+            if (e.keyCode === 13) {
+                func();
+            }
+        });
 
     </script>
 
